@@ -6,28 +6,33 @@
 } @ args:
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    (modulesPath + "/profiles/qemu-guest.nix")
     ./disk-config.nix
+    { hardware.facter.reportPath = ./facter.json; }
   ];
-  boot.loader.grub = {
-    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
-    # devices = [ ];
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-  };
-  services.openssh.enable = true;
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl
     pkgs.gitMinimal
+    pkgs.helix
   ];
 
-  users.users.root.openssh.authorizedKeys.keys =
-  [
-    # change this to your ssh key
-    "# CHANGE"
-  ] ++ (args.extraPublicKeys or []); # this is used for unit-testing this module and can be removed if not needed
+  users.users.enei = {
+    isNormalUser = true;
+    description = "enei";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "uinput"
+      "podman"
+    ];
+    packages = with pkgs; [
+      nixfmt-rfc-style
+      nil
+    ];
+  };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.1";
 }
