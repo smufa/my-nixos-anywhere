@@ -6,6 +6,7 @@
 } @ args:
 {
   imports = [
+    "${fetchTarball "https://github.com/nix-community/disko/tarball/master"}/module.nix"
     ./disk-config.nix
     { hardware.facter.reportPath = ./facter.json; }
   ];
