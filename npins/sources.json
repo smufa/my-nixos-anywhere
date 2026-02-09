@@ -1,0 +1,43 @@
+{
+  "pins": {
+    "disko": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "disko"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.13.0",
+      "revision": "56ef5e72fec74b993ad0973b2dfa4eadeb48ba41",
+      "url": "https://api.github.com/repos/nix-community/disko/tarball/v1.13.0",
+      "hash": "03jz60kw0khm1lp72q65z8gq69bfrqqbj08kw0hbiav1qh3g7p08"
+    },
+    "nixos-anywhere": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nixos-anywhere"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "1.13.0",
+      "revision": "bad98b0685cf47eaeadcaf6787da8b51cf025693",
+      "url": "https://api.github.com/repos/nix-community/nixos-anywhere/tarball/1.13.0",
+      "hash": "0hff5imv85qhml6f3p1lqlgvi9ng73ylwhl8sfsw04q57grwwp7b"
+    },
+    "nixpkgs": {
+      "type": "Channel",
+      "name": "nixos-25.11",
+      "url": "https://releases.nixos.org/nixos/25.11/nixos-25.11.5581.23d72dabcb3b/nixexprs.tar.xz",
+      "hash": "1nf3i1scmq9bimizpgf9lb5vgkckkj3xkdq4gp8gnmxfhrkww71m"
+    }
+  },
+  "version": 5
+}

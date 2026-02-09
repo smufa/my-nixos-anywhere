@@ -1,0 +1,3 @@
+toplevel=$(nixos-rebuild build --no-flake)
+diskoScript=$(nix-build -E "((import <nixpkgs> {}).nixos [ ./configuration.nix ]).diskoScript")
+nixos-anywhere --store-paths "$diskoScript" "$toplevel" root@target-host

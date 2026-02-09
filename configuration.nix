@@ -1,24 +1,22 @@
-{
-  modulesPath,
-  lib,
-  pkgs,
-  ...
-} @ args:
+
+{ modulesPath, ... }:
+
+let
+  sources = import ./npins;
+  pkgs = import sources.nixpkgs {};
+in
 {
   imports = [
-    "${fetchTarball "https://github.com/nix-community/disko/tarball/master"}/module.nix"
-    ./disk-config.nix
-    { hardware.facter.reportPath = ./facter.json; }
+    (sources.disko + "/module.nix")
+    ./single-btrfs-luks-swap.nix
   ];
+
+  disko.devices.disk.main.device = "/dev/nvme0n1";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
-    pkgs.helix
-  ];
+  services.openssh.enable = true;
 
   users.users.enei = {
     isNormalUser = true;
@@ -32,8 +30,12 @@
     packages = with pkgs; [
       nixfmt-rfc-style
       nil
+      micro
+    ];
+    openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKB7piUC0mjzZyOjtgL2dZR4p8rCdM0HtsL4s4zx+GgX"
     ];
   };
 
-  system.stateVersion = "25.1";
+  system.stateVersion = "25.11";
 }
